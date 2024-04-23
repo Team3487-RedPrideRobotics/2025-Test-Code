@@ -14,6 +14,7 @@ package frc.robot;
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import main.java.frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
@@ -23,13 +24,22 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 
  
 public class RobotContainer {
-
+  //subsystems
   private static RobotContainer m_robotContainer = new RobotContainer();
+  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
+  //controller
   private final XboxController m_driveController = new XboxController(1);
 
 
-  private RobotContainer() {
+  public RobotContainer() {
+    swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
+      swerveSubsystem,
+      () -> -m_driveController.getRawAxis(DriveConstants.kDriverYAxis),
+      () -> m_driveController.getRawAxis(DriveConstants.kDriverXAxis),
+      () -> m_driveController.getRawAxis(DriveConstants.kDriverRotAxis),
+      () -> !m_driveController.getRawButton(DriveConstants.kDriverFieldOrientedButtonIdx)));
+
     configureButtonBindings();
   }
 
@@ -38,11 +48,11 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-  
+    new JoystickButton(m_driveController, 2).whenPressed(() -> swerveSubsystem.zeroHeading());
   }
 
   public Command getAutonomousCommand() {
-    return m_chooser.getSelected();
+    return null;
   }
   
 

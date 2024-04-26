@@ -2,20 +2,17 @@ package main.java.frc.robot.commands;
 
 import java.util.function.Supplier;
 
-import javax.sound.sampled.spi.AudioFileReader;
-
 import edu.wpi.first.wpilibj.SlewRateLimiter;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 
 
-public class SwerveJoysticCmd extends CommandBase{
-    private final SwerveSubsytem swerveSubsytem;
+public class SwerveJoystickCmd extends Command{
+    private final main.java.frc.robot.subsystems.SwerveSubsystem swerveSubsytem;
     private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
     private final Supplier<Boolean> fieldOrientedFunction;
     private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
@@ -36,13 +33,14 @@ public class SwerveJoysticCmd extends CommandBase{
 
     public void execute(){
         //getting joystick inputes
+        
         double xSpeed = xSpdFunction.get();
         double ySpeed = ySpdFunction.get();
         double turningSpeed = turningSpdFunction.get();
 
         //applying deadband...but fancier
-        xSpeed = math.abs(xSpeed) > DriveConstants.kDeadband ? xSpeed : 0.0;
-        ySpeed = math.abs(ySpeed) > DriveConstants.kDeadband ? ySpeed : 0.0;
+        xSpeed = Math.abs(xSpeed) > DriveConstants.kDeadband ? xSpeed : 0.0;
+        ySpeed = Math.abs(ySpeed) > DriveConstants.kDeadband ? ySpeed : 0.0;
         turningSpeed = Math.abs(turningSpeed) > DriveConstants.kDeadband ? turningSpeed : 0.0;
 
         // Makes it smoother. I guess we could remove it but idk

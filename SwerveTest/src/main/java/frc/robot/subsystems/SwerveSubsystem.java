@@ -60,9 +60,12 @@ public class SwerveSubsystem extends SubsystemBase {
                         try{
                                 Thread.sleep(1000);
                                 zeroHeading();
-                        } catch (Exception e){                                
+                        } catch (Exception e){ 
+                                 System.Out.println("Error zero'ing the NavX");                  
                         }
                 }).start();
+                new Thread(command).start();
+
         }
 
         public void zeroHeading(){
@@ -97,6 +100,7 @@ public class SwerveSubsystem extends SubsystemBase {
                 frontRight.setDesiredState(desiredStates[1]);
                 backLeft.setDesiredState(desiredStates[2]);
                 backRight.setDesiredState(desiredStates[3]);
+                System.out.println(desiredStates[0]);
         }
 }
 

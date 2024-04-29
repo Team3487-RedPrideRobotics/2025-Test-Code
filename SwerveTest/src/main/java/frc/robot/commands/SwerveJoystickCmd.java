@@ -7,8 +7,7 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.SwerveSubsystem;
-
+import main.java.frc.robot.subsystems.SwerveSubsystem;
 
 
 public class SwerveJoystickCmd extends Command{
